@@ -1,0 +1,14 @@
+[package]
+name = "rtk-lua-macros"
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+description = "The macros for Rust Type Kit's Lua engine - query Rust types and produce FFI types"
+repository = "https://github.com/reachingforthejack/rtk"
+readme = "README.md"
+
+[lib]
+proc-macro = true
+
+[dependencies]
+

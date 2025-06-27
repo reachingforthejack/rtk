@@ -1,0 +1,7 @@
+[workspace]
+resolver = "2"
+members = ["crates/rtk", "crates/rtk-lua", "crates/rtk-lua-macros","crates/rtk-rustc-driver", "examples/axum-to-ts"]
+
+[workspace.dependencies]
+anyhow = "1.0.98"
+

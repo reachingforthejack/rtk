@@ -1,0 +1,3 @@
+#!/bin/bash
+
+rtk --script lua/rtk_api_gen.lua --out-file lua/rtk_api.lua -- -p rtk-lua
