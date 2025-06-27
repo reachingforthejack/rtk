@@ -5,7 +5,7 @@ edition = "2024"
 license = "MIT"
 description = "The Lua engine for Rust Type Kit - query Rust types and produce FFI types"
 repository = "https://github.com/reachingforthejack/rtk"
-readme = "README.md"
+readme = "../../README.md"
 
 [dependencies]
 mlua = { version = "0.10.5", features = ["lua54", "vendored", "send"] }

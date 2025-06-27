@@ -5,7 +5,7 @@ edition = "2024"
 license = "MIT"
 description = "The rustc driver (don't use this directly) for Rust Type Kit - query Rust types and produce FFI types"
 repository = "https://github.com/reachingforthejack/rtk"
-readme = "README.md"
+readme = "../../README.md"
 
 [dependencies]
 rtk-lua = { path = "../rtk-lua", version = "0.1.0" }
