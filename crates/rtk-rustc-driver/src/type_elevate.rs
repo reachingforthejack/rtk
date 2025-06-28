@@ -101,6 +101,8 @@ pub fn type_as_rtk_lua_type_value<'tcx>(
                 o.skip_binder()
             };
 
+            let arg_names = tcx.fn_arg_names(fn_def_id);
+
             Some(rtk_lua::TypeValue::Function(rtk_lua::FunctionTypeValue {
                 is_async,
                 args_struct: rtk_lua::StructTypeValue {
@@ -109,8 +111,13 @@ pub fn type_as_rtk_lua_type_value<'tcx>(
                         .iter()
                         .enumerate()
                         .filter_map(|(i, value)| {
+                            let name = arg_names
+                                .get(i)
+                                .map(|name| rtk_lua::Either::Right(name.to_string()))
+                                .unwrap_or_else(|| rtk_lua::Either::Left(i));
+
                             Some(rtk_lua::StructTypeValueField {
-                                name: rtk_lua::Either::Left(i),
+                                name,
                                 // function args can't have doc comments or else clippy yells at
                                 // you, so its not even worth checking!
                                 doc_comment: None,

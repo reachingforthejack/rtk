@@ -5,15 +5,6 @@
 ---@class rtk
 rtk = {}
 
----@alias RtkRustcDriverVersionCratesIoLatest string
-
----@alias RtkRustcDriverVersionCratesIo string
-
----@alias RtkRustcDriverVersionLocal string
-
-
----@alias RtkRustcDriverVersion RtkRustcDriverVersionCratesIoLatest|RtkRustcDriverVersionCratesIo|RtkRustcDriverVersionLocal
-
 ---@class FunctionCall
 ---@field location Location
 ---@field args Value[]
@@ -27,7 +18,203 @@ local FunctionCall = {}
 ---@field item_id string
 ---@field attributes Attribute[]
 ---@field doc_comment string|nil
+---@field is_async boolean
 local FunctionTypeValue = {}
+
+---@class TraitImpl
+---@field trait_location Location
+---@field for_type TypeValue
+---@field functions FunctionTypeValue[]
+local TraitImpl = {}
+
+---@alias RtkRustcDriverVersionCratesIoLatest string
+
+---@alias RtkRustcDriverVersionCratesIo string
+
+---@alias RtkRustcDriverVersionLocal string
+
+---@alias RtkRustcDriverVersion RtkRustcDriverVersionCratesIoLatest|RtkRustcDriverVersionCratesIo|RtkRustcDriverVersionLocal
+
+---@class MethodCall
+---@field origin MethodCallQuery
+---@field args Value[]
+---@field in_item_id string
+local MethodCall = {}
+
+---@class Location
+---@field crate_name string
+---@field path string[]
+---@field impl_block_number number|nil
+local Location = {}
+
+---@class ValueStringLiteral
+---@field variant_name "StringLiteral"
+---@field variant_data string
+local ValueStringLiteral = {}
+
+---@class ValueIntegerLiteral
+---@field variant_name "IntegerLiteral"
+---@field variant_data number
+local ValueIntegerLiteral = {}
+
+---@class ValueFloatLiteral
+---@field variant_name "FloatLiteral"
+---@field variant_data number
+local ValueFloatLiteral = {}
+
+---@class ValueFunctionCall
+---@field variant_name "FunctionCall"
+---@field variant_data FunctionCall
+local ValueFunctionCall = {}
+
+---@class ValueMethodCall
+---@field variant_name "MethodCall"
+---@field variant_data MethodCall
+local ValueMethodCall = {}
+
+---@class ValueType
+---@field variant_name "Type"
+---@field variant_data TypeValue
+local ValueType = {}
+
+---@alias Value ValueStringLiteral|ValueIntegerLiteral|ValueFloatLiteral|ValueFunctionCall|ValueMethodCall|ValueType
+
+---@class MethodCallQuery
+---@field parent MethodCallQuery|nil
+---@field location Location
+local MethodCallQuery = {}
+
+---@class TypeValueString
+---@field variant_name "String"
+---@field variant_data nil
+local TypeValueString = {}
+
+---@class TypeValueU8
+---@field variant_name "U8"
+---@field variant_data nil
+local TypeValueU8 = {}
+
+---@class TypeValueU16
+---@field variant_name "U16"
+---@field variant_data nil
+local TypeValueU16 = {}
+
+---@class TypeValueU32
+---@field variant_name "U32"
+---@field variant_data nil
+local TypeValueU32 = {}
+
+---@class TypeValueU64
+---@field variant_name "U64"
+---@field variant_data nil
+local TypeValueU64 = {}
+
+---@class TypeValueU128
+---@field variant_name "U128"
+---@field variant_data nil
+local TypeValueU128 = {}
+
+---@class TypeValueUsize
+---@field variant_name "Usize"
+---@field variant_data nil
+local TypeValueUsize = {}
+
+---@class TypeValueI8
+---@field variant_name "I8"
+---@field variant_data nil
+local TypeValueI8 = {}
+
+---@class TypeValueI16
+---@field variant_name "I16"
+---@field variant_data nil
+local TypeValueI16 = {}
+
+---@class TypeValueI32
+---@field variant_name "I32"
+---@field variant_data nil
+local TypeValueI32 = {}
+
+---@class TypeValueI64
+---@field variant_name "I64"
+---@field variant_data nil
+local TypeValueI64 = {}
+
+---@class TypeValueI128
+---@field variant_name "I128"
+---@field variant_data nil
+local TypeValueI128 = {}
+
+---@class TypeValueIsize
+---@field variant_name "Isize"
+---@field variant_data nil
+local TypeValueIsize = {}
+
+---@class TypeValueF32
+---@field variant_name "F32"
+---@field variant_data nil
+local TypeValueF32 = {}
+
+---@class TypeValueF64
+---@field variant_name "F64"
+---@field variant_data nil
+local TypeValueF64 = {}
+
+---@class TypeValueBool
+---@field variant_name "Bool"
+---@field variant_data nil
+local TypeValueBool = {}
+
+---@class TypeValueHashMap
+---@field variant_name "HashMap"
+---@field variant_data TypeValue
+local TypeValueHashMap = {}
+
+---@class TypeValueVec
+---@field variant_name "Vec"
+---@field variant_data TypeValue
+local TypeValueVec = {}
+
+---@class TypeValueResult
+---@field variant_name "Result"
+---@field variant_data TypeValue
+local TypeValueResult = {}
+
+---@class TypeValueStruct
+---@field variant_name "Struct"
+---@field variant_data StructTypeValue
+local TypeValueStruct = {}
+
+---@class TypeValueEnum
+---@field variant_name "Enum"
+---@field variant_data EnumTypeValue
+local TypeValueEnum = {}
+
+---@class TypeValueClosure
+---@field variant_name "Closure"
+---@field variant_data ClosureTypeValue
+local TypeValueClosure = {}
+
+---@class TypeValueFunction
+---@field variant_name "Function"
+---@field variant_data FunctionTypeValue
+local TypeValueFunction = {}
+
+---@class TypeValueOption
+---@field variant_name "Option"
+---@field variant_data TypeValue
+local TypeValueOption = {}
+
+---@class TypeValueTuple
+---@field variant_name "Tuple"
+---@field variant_data TypeValue[]
+local TypeValueTuple = {}
+
+---@class TypeValueRecursiveRef
+---@field variant_name "RecursiveRef"
+---@field variant_data Location
+local TypeValueRecursiveRef = {}
+
+---@alias TypeValue TypeValueString|TypeValueU8|TypeValueU16|TypeValueU32|TypeValueU64|TypeValueU128|TypeValueUsize|TypeValueI8|TypeValueI16|TypeValueI32|TypeValueI64|TypeValueI128|TypeValueIsize|TypeValueF32|TypeValueF64|TypeValueBool|TypeValueHashMap|TypeValueVec|TypeValueResult|TypeValueStruct|TypeValueEnum|TypeValueClosure|TypeValueFunction|TypeValueOption|TypeValueTuple|TypeValueRecursiveRef
 
 ---@class StructTypeValue
 ---@field location Location
@@ -36,219 +223,12 @@ local FunctionTypeValue = {}
 ---@field attributes Attribute[]
 local StructTypeValue = {}
 
----@class MethodCallQuery
----@field parent MethodCallQuery|nil
----@field location Location
-local MethodCallQuery = {}
-
----@class MethodCall
----@field origin MethodCallQuery
----@field args Value[]
----@field in_item_id string
-local MethodCall = {}
-
 ---@class StructTypeValueField
 ---@field name Either
 ---@field doc_comment string|nil
 ---@field attributes Attribute[]
 ---@field value TypeValue
 local StructTypeValueField = {}
-
----@class TraitImpl
----@field trait_location Location
----@field for_type TypeValue
----@field functions FunctionTypeValue[]
-local TraitImpl = {}
-
----@class Location
----@field crate_name string
----@field path string[]
----@field impl_block_number number|nil
-local Location = {}
-
----@class Attribute
----@field name string
----@field value_str string|nil
-local Attribute = {}
-
----@class EitherLeft
----@field variant_name "Left"
----@field variant_data number 
-local EitherLeft = {}
-
----@class EitherRight
----@field variant_name "Right"
----@field variant_data string 
-local EitherRight = {}
-
-
----@alias Either EitherLeft|EitherRight
-
----@class ValueStringLiteral
----@field variant_name "StringLiteral"
----@field variant_data string 
-local ValueStringLiteral = {}
-
----@class ValueIntegerLiteral
----@field variant_name "IntegerLiteral"
----@field variant_data number 
-local ValueIntegerLiteral = {}
-
----@class ValueFloatLiteral
----@field variant_name "FloatLiteral"
----@field variant_data number 
-local ValueFloatLiteral = {}
-
----@class ValueFunctionCall
----@field variant_name "FunctionCall"
----@field variant_data FunctionCall 
-local ValueFunctionCall = {}
-
----@class ValueMethodCall
----@field variant_name "MethodCall"
----@field variant_data MethodCall 
-local ValueMethodCall = {}
-
----@class ValueType
----@field variant_name "Type"
----@field variant_data TypeValue 
-local ValueType = {}
-
-
----@alias Value ValueStringLiteral|ValueIntegerLiteral|ValueFloatLiteral|ValueFunctionCall|ValueMethodCall|ValueType
-
----@class TypeValueString
----@field variant_name "String"
----@field variant_data nil 
-local TypeValueString = {}
-
----@class TypeValueU8
----@field variant_name "U8"
----@field variant_data nil 
-local TypeValueU8 = {}
-
----@class TypeValueU16
----@field variant_name "U16"
----@field variant_data nil 
-local TypeValueU16 = {}
-
----@class TypeValueU32
----@field variant_name "U32"
----@field variant_data nil 
-local TypeValueU32 = {}
-
----@class TypeValueU64
----@field variant_name "U64"
----@field variant_data nil 
-local TypeValueU64 = {}
-
----@class TypeValueU128
----@field variant_name "U128"
----@field variant_data nil 
-local TypeValueU128 = {}
-
----@class TypeValueUsize
----@field variant_name "Usize"
----@field variant_data nil 
-local TypeValueUsize = {}
-
----@class TypeValueI8
----@field variant_name "I8"
----@field variant_data nil 
-local TypeValueI8 = {}
-
----@class TypeValueI16
----@field variant_name "I16"
----@field variant_data nil 
-local TypeValueI16 = {}
-
----@class TypeValueI32
----@field variant_name "I32"
----@field variant_data nil 
-local TypeValueI32 = {}
-
----@class TypeValueI64
----@field variant_name "I64"
----@field variant_data nil 
-local TypeValueI64 = {}
-
----@class TypeValueI128
----@field variant_name "I128"
----@field variant_data nil 
-local TypeValueI128 = {}
-
----@class TypeValueIsize
----@field variant_name "Isize"
----@field variant_data nil 
-local TypeValueIsize = {}
-
----@class TypeValueF32
----@field variant_name "F32"
----@field variant_data nil 
-local TypeValueF32 = {}
-
----@class TypeValueF64
----@field variant_name "F64"
----@field variant_data nil 
-local TypeValueF64 = {}
-
----@class TypeValueBool
----@field variant_name "Bool"
----@field variant_data nil 
-local TypeValueBool = {}
-
----@class TypeValueHashMap
----@field variant_name "HashMap"
----@field variant_data TypeValue 
-local TypeValueHashMap = {}
-
----@class TypeValueVec
----@field variant_name "Vec"
----@field variant_data TypeValue 
-local TypeValueVec = {}
-
----@class TypeValueResult
----@field variant_name "Result"
----@field variant_data TypeValue 
-local TypeValueResult = {}
-
----@class TypeValueStruct
----@field variant_name "Struct"
----@field variant_data StructTypeValue 
-local TypeValueStruct = {}
-
----@class TypeValueEnum
----@field variant_name "Enum"
----@field variant_data EnumTypeValue 
-local TypeValueEnum = {}
-
----@class TypeValueClosure
----@field variant_name "Closure"
----@field variant_data ClosureTypeValue 
-local TypeValueClosure = {}
-
----@class TypeValueFunction
----@field variant_name "Function"
----@field variant_data FunctionTypeValue 
-local TypeValueFunction = {}
-
----@class TypeValueOption
----@field variant_name "Option"
----@field variant_data TypeValue 
-local TypeValueOption = {}
-
----@class TypeValueTuple
----@field variant_name "Tuple"
----@field variant_data TypeValue[] 
-local TypeValueTuple = {}
-
----@class TypeValueRecursiveRef
----@field variant_name "RecursiveRef"
----@field variant_data Location 
-local TypeValueRecursiveRef = {}
-
-
----@alias TypeValue TypeValueString|TypeValueU8|TypeValueU16|TypeValueU32|TypeValueU64|TypeValueU128|TypeValueUsize|TypeValueI8|TypeValueI16|TypeValueI32|TypeValueI64|TypeValueI128|TypeValueIsize|TypeValueF32|TypeValueF64|TypeValueBool|TypeValueHashMap|TypeValueVec|TypeValueResult|TypeValueStruct|TypeValueEnum|TypeValueClosure|TypeValueFunction|TypeValueOption|TypeValueTuple|TypeValueRecursiveRef
 
 ---@class ClosureTypeValue
 ---@field args TypeValue[]
@@ -261,6 +241,23 @@ local ClosureTypeValue = {}
 ---@field doc_comment string|nil
 ---@field attributes Attribute[]
 local EnumTypeValue = {}
+
+---@class Attribute
+---@field name string
+---@field value_str string|nil
+local Attribute = {}
+
+---@class EitherLeft
+---@field variant_name "Left"
+---@field variant_data number
+local EitherLeft = {}
+
+---@class EitherRight
+---@field variant_name "Right"
+---@field variant_data string
+local EitherRight = {}
+
+---@alias Either EitherLeft|EitherRight
 
 ---@class EnumTypeValueVariant
 ---@field name string
@@ -312,4 +309,3 @@ function rtk.query_function_calls(arg_1) end
 ---@param arg_1 string
 ---@return nil
 function rtk.emit(arg_1) end
-
